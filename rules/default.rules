@@ -64,3 +64,4 @@ prefix_rule(pattern=["install", "-m", "755", "$HOME/workspace/solo/scripts/sync-
 prefix_rule(pattern=["/usr/bin/zsh", "-lc", "git ls-remote git@github.com:0x07c4/agent.git 2>/dev/null | head"], decision="allow")
 prefix_rule(pattern=["install", "-m", "644", "$HOME/workspace/solo/scripts/sync-agent-config.service", "$HOME/.config/systemd/user/sync-agent-config.service"], decision="allow")
 prefix_rule(pattern=["$HOME/.codex/bin/sync-agent-config.sh"], decision="allow")
+prefix_rule(pattern=["systemctl", "--user", "status", "sync-agent-config.timer", "--no-pager"], decision="allow")
