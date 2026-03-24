@@ -1,0 +1,16 @@
+# This repo is an exported safe snapshot, not a live ~/.codex mirror.
+
+auth.json
+history.jsonl
+session_index.jsonl
+sessions/
+log/
+logs_*.sqlite
+logs_*.sqlite-shm
+logs_*.sqlite-wal
+state_*.sqlite
+state_*.sqlite-shm
+state_*.sqlite-wal
+models_cache.json
+tmp/
+shell_snapshots/
