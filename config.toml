@@ -4,13 +4,6 @@ personality = "pragmatic"
 plan_mode_reasoning_effort = "xhigh"
 service_tier = "fast"
 
-
-
-
-
-
-
-
 [notice]
 hide_gpt5_1_migration_prompt = true
 
