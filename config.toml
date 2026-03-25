@@ -6,6 +6,7 @@ service_tier = "fast"
 
 [notice]
 hide_gpt5_1_migration_prompt = true
+hide_rate_limit_model_nudge = true
 
 [notice.model_migrations]
 "gpt-5.1-codex" = "gpt-5.2-codex"

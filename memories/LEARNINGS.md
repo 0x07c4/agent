@@ -65,3 +65,43 @@
 ### Metadata
 - Source: conversation
 - Tags: codex, performance, workspace, ignore
+
+## [LRN-20260325-004] explicit-turn-intent
+**Logged**: 2026-03-25T00:00:00+08:00
+**Priority**: high
+**Status**: pending
+
+### Summary
+仅有“对话 / 工作区协作”两档还不够；视觉化决策流需要显式的 turn intent。
+
+### Details
+当工作区协作既承担“协作分析”、又承担“方向建议”和“具体预览”时，如果前后端没有显式阶段信号，后端就会退回到根据用户输入内容猜意图，最终再次误产出 `solo-write` 或把主区劫持成写文件提案。更稳定的做法是让前台显式传递这一轮的阶段，例如：
+- `协作分析`
+- `方向建议`
+- `具体预览`
+
+### Suggested Action
+后续所有和建议卡/预览卡相关的实现，都优先用显式 turn intent 驱动，不再把“多方向还是具体预览”当成文本理解题。
+
+### Metadata
+- Source: conversation
+- Tags: ux, state, turn-intent, workspace-collaboration
+
+## [LRN-20260325-005] proposal-id-and-choice-fallback
+**Logged**: 2026-03-25T00:00:00+08:00
+**Priority**: high
+**Status**: pending
+
+### Summary
+proposal / message 这类事件对象不能只靠毫秒时间戳做 ID；choice fallback 也不能在多行 A/B 描述里过早 `break`。
+
+### Details
+在紧密循环创建多个 proposal 时，如果 ID 只用 `now_millis()`，同毫秒内会直接撞车，前端按 `id` upsert 时就会吞掉后面的卡片。另一方面，方向文本 fallback 如果按“进入选择组后遇到第一条非 bullet 就结束”，会把多行 A/B 方案截成只剩一条。两者叠加时，最典型现象就是：文本说有 2 个方向，但主区只剩 1 张卡。
+
+### Suggested Action
+- 所有可并发创建的 UI 实体都用“时间戳 + 原子序号”或同等级唯一 ID
+- 方向 fallback 解析改成“按选项分组收集”，不要把 continuation line 当结束标记
+
+### Metadata
+- Source: conversation
+- Tags: ids, proposal, parsing, choice-cards

@@ -11,6 +11,12 @@
   Source: Solo 方向卡交互修正
 - [ACT-005] 处理 Codex 工作区协作时，要优先考虑范围控制；`node_modules`、`dist`、构建产物等路径应默认被忽略。
   Source: `.ignore` / workspace scope
+- [ACT-006] 在任务过程中持续做自我提升：把非显而易见、可复用、可能再次出现的经验、纠正、技巧和能力缺口沉淀到 memory，并在足够稳定后提升到 `ACTIVE.md`。
+  Source: user explicit preference / self-improving loop
+- [ACT-007] 只要任务可以明确拆解成互不阻塞的子任务，就优先使用多个 agent 并行完成。
+  Source: user explicit preference / collaboration strategy
+- [ACT-008] 在任务中优先使用合适的 skill、现成工具、已有脚本和现有工作流完成目标，不要不必要地从头造轮子。
+  Source: user explicit preference / tool reuse
 
 ## Current Focus
 - 把 Solo 从“长文字分析”继续收成“视觉化决策流”：
@@ -24,4 +30,4 @@
 - 当前焦点可定期收缩或替换，避免无限膨胀。
 
 ## Last Reviewed
-- 2026-03-24
+- 2026-03-25
