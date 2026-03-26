@@ -105,3 +105,66 @@ proposal / message 这类事件对象不能只靠毫秒时间戳做 ID；choice 
 ### Metadata
 - Source: conversation
 - Tags: ids, proposal, parsing, choice-cards
+
+## [LRN-20260326-001] codex-reconnect-noise-is-not-progress
+**Logged**: 2026-03-26T00:00:00+08:00
+**Priority**: high
+**Status**: pending
+
+### Summary
+`Reconnecting...` 和 `timeout waiting for child process to exit` 这类 Codex CLI stderr 噪声不能被当成“有进展”，否则工作区协作会假活着卡很久。
+
+### Details
+在 Solo 的 Codex 流式链路里，如果把任何 stderr 行都算作 activity，就会不断刷新 `last_activity_at`。一旦 Codex CLI 卡进重连或子进程退出超时，这些噪声会持续“续命”，导致 `idle_timeout` 难以触发，用户只能看到几百秒的假等待。更稳的做法是：
+- 将 reconnect / child-process-exit-timeout 识别为噪声状态
+- 这些状态不刷新 activity
+- 一旦出现连续重连或退出超时，尽早终止本轮请求
+
+### Suggested Action
+- 所有 agent/CLI 流式桥接都区分“有效进展”和“连接噪声”
+- `stderr` 里的连接异常默认不能重置空闲超时
+- 前端不要直接展示 raw reconnect 文案，要产品化成中文状态
+
+### Metadata
+- Source: conversation
+- Tags: codex-cli, streaming, timeout, reconnect, workspace-collaboration
+
+## [LRN-20260326-002] verify-codex-cli-with-direct-exec
+**Logged**: 2026-03-26T00:00:00+08:00
+**Priority**: medium
+**Status**: pending
+
+### Summary
+排查 Solo 的 Codex 工作区协作异常时，要先做一条等价的 `codex exec` 终端对照，先分清是 Solo 包装层的问题，还是 `codex-cli` 本体的问题。
+
+### Details
+这次直接在终端里跑与 Solo 接近的 `codex exec --json --output-last-message --cd <workspace>`，先在沙箱里撞到 `Operation not permitted`，说明沙箱网络限制会制造假象；切到真实网络环境后，命令能正常开始读取文件并产出 item 事件。这个对照说明：一旦 Solo 中出现长时间挂起、重连、子进程回收异常，不能直接下结论说“OpenAI 挂了”或“Codex 整体不可用”，要先用终端对照把问题边界缩清楚。
+
+### Suggested Action
+- 以后碰到 Solo 内部的 Codex 异常，先做一条最小等价 `codex exec` 对照
+- 先排除沙箱/网络环境影响，再判断是 CLI 本体还是 Solo 包装层
+- 把这种对照实验当成 Codex 链路排障的固定步骤
+
+### Metadata
+- Source: conversation
+- Tags: codex-cli, diagnostics, control-experiment, solo
+
+## [LRN-20260326-003] tauri-dev-proxy-needs-no-proxy-or-subprocess-injection
+**Logged**: 2026-03-26T00:00:00+08:00
+**Priority**: medium
+**Status**: pending
+
+### Summary
+在 Tauri + Vite 开发环境里，全局设置 `http_proxy/https_proxy/all_proxy` 很容易把 `localhost` 的前端资源和 HMR websocket 一起代理走，导致桌面窗口白屏。更稳的做法是：要么补 `NO_PROXY=localhost,127.0.0.1,::1`，要么只把代理注入给 `codex` 子进程。
+
+### Details
+这次用户先在 shell 里导出了普通代理变量，再运行 `npm run tauri dev`，应用直接白屏。补上 `no_proxy/NO_PROXY=localhost,127.0.0.1,::1` 后，前端恢复正常。这说明问题不在 Codex 本身，而是开发态的 WebView/Vite 也被代理了。对 Solo 这种“桌面壳 + 本地 dev server + 外部 CLI”的结构，更合理的方案是把代理边界收窄到 `Command::new(\"codex\")`，而不是污染整个应用进程。
+
+### Suggested Action
+- 优先支持独立的 `SOLO_CODEX_*` 代理环境变量，并只注入给 Codex 子进程
+- 如果仍需全局代理启动开发环境，必须补 `NO_PROXY=localhost,127.0.0.1,::1`
+- 排查白屏时，先检查本地 dev server 是否被代理走
+
+### Metadata
+- Source: conversation
+- Tags: tauri, vite, proxy, no_proxy, codex-cli, solo
