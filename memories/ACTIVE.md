@@ -5,8 +5,8 @@
   Source: PROFILE.communication
 - [ACT-002] 不要靠用户输入内容猜模式；`对话 / 工作区协作` 必须由显式状态决定。
   Source: Solo 产品规则
-- [ACT-003] 任何写文件、运行命令、或其他副作用动作都必须先给建议和预览，再由用户确认。
-  Source: Solo 产品规则
+- [ACT-003] 除非命令需要 `sudo`、系统提权，或属于高风险不可逆操作，否则可以直接执行，不必逐条向用户确认。
+  Source: user correction / conversation
 - [ACT-004] 方向卡只能负责“预览与确认选择”，不能在用户没看到具体内容前出现“应用改动”。
   Source: Solo 方向卡交互修正
 - [ACT-005] 处理 Codex 工作区协作时，要优先考虑范围控制；`node_modules`、`dist`、构建产物等路径应默认被忽略。
@@ -17,6 +17,16 @@
   Source: user explicit preference / collaboration strategy
 - [ACT-008] 在任务中优先使用合适的 skill、现成工具、已有脚本和现有工作流完成目标，不要不必要地从头造轮子。
   Source: user explicit preference / tool reuse
+- [ACT-009] 进度更新只做状态汇报，不要写成像在征求许可或再次发问的句式。
+  Source: user correction / conversation
+- [ACT-010] 全局 memory 只记录跨项目、可公开、可复用的稳定规则；不要写入 repo 级背景、命名讨论、产品边界或其他项目私有上下文。
+  Source: user correction / memory boundary
+- [ACT-011] 推进项目时要持续主动清理架构上的复杂设计；优先删除重复状态、补丁式分支和失控分层，不要在既有复杂度上继续叠加新能力。
+  Source: user explicit preference / architecture hygiene
+- [ACT-012] 遇到产品定位、架构方向、长期取舍或个人偏好相关任务时，优先回读 `~/workspace/notes`；这里承载用户的长期思考。
+  Source: user explicit preference / long-term notes
+- [ACT-013] `~/workspace/notes` 会同步到 `git@github.com:0x07c4/notes.git`，可视为用户长期思考的稳定、版本化来源。
+  Source: user explicit preference / notes sync
 
 ## Current Focus
 - 把 Solo 从“长文字分析”继续收成“视觉化决策流”：
@@ -30,4 +40,4 @@
 - 当前焦点可定期收缩或替换，避免无限膨胀。
 
 ## Last Reviewed
-- 2026-03-25
+- 2026-03-29

@@ -7,6 +7,8 @@ REMOTE_URL="${SYNC_REMOTE_URL:-git@github.com:0x07c4/agent.git}"
 GIT_NAME="${SYNC_GIT_NAME:-0x07c4}"
 GIT_EMAIL="${SYNC_GIT_EMAIL:-0x07c4@users.noreply.github.com}"
 COMMIT_MESSAGE="${SYNC_COMMIT_MESSAGE:-chore: sync codex configuration}"
+SSH_CONFIG="${SYNC_SSH_CONFIG:-$HOME/.ssh/config}"
+GIT_SSH_COMMAND_VALUE="${SYNC_GIT_SSH_COMMAND:-ssh -F $SSH_CONFIG}"
 KEEP_TEMP="${SYNC_KEEP_TEMP:-0}"
 DRY_RUN="${SYNC_DRY_RUN:-0}"
 TMP_ROOT="${TMPDIR:-/tmp}"
@@ -324,6 +326,7 @@ prepare_repo() {
   git init -b main "$REPO_DIR" >/dev/null
   git -C "$REPO_DIR" config user.name "$GIT_NAME"
   git -C "$REPO_DIR" config user.email "$GIT_EMAIL"
+  git -C "$REPO_DIR" config core.sshCommand "$GIT_SSH_COMMAND_VALUE"
   git -C "$REPO_DIR" remote add origin "$REMOTE_URL"
 
   if git -C "$REPO_DIR" fetch --quiet origin main; then

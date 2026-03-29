@@ -14,3 +14,9 @@ hide_rate_limit_model_nudge = true
 
 [features]
 multi_agent = true
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[apps.connector_76869538009648d5b282a4bb21c3d157.tools.github_create_file]
+approval_mode = "approve"
