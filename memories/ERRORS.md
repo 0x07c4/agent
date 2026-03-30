@@ -236,3 +236,26 @@ zsh:1: permission denied: $HOME/workspace/utopia/scripts/update-from-shorin.sh
 - 先不要误判成文件权限没设对
 - 优先用 `bash script.sh` 或 `zsh script.sh` 执行本地脚本
 - 需要验证可执行位时，单独用 `ls -l` 检查
+
+## [ERR-20260330-001] alsa-cli-may-fail-even-when-pipewire-sees-cards
+**Logged**: 2026-03-30T00:00:00+08:00
+**Priority**: low
+**Status**: pending
+
+### Summary
+在当前 Codex shell 环境里，即使 `/proc/asound/cards` 有声卡、PipeWire 也能正常枚举到 ALSA 设备，`amixer -c 0` 这类直接走 ALSA 控制面的命令仍可能报 `Invalid card number`。
+
+### Error
+```text
+Invalid card number '0'.
+```
+
+### Context
+- Command: `amixer -c 0 scontrols`
+- Situation: 排查 Arch Linux 模拟音频输出异常时，PipeWire 已显示 `Built-in Audio Analog Stereo`
+- Environment: Codex shell / Linux / PipeWire 正常 / `/proc/asound/cards` 可读
+
+### Suggested Fix
+- 先不要把问题误判成“系统没有声卡”
+- 在这个环境里优先使用 `wpctl`、`pactl`、`journalctl` 做诊断
+- 如果必须看 ALSA mixer，改让用户在自己的图形终端或真实 shell 里执行 `amixer` / `alsamixer`

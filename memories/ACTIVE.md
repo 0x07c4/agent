@@ -15,6 +15,8 @@
   Source: user explicit preference / self-improving loop
 - [ACT-007] 只要任务可以明确拆解成互不阻塞的子任务，就优先使用多个 agent 并行完成。
   Source: user explicit preference / collaboration strategy
+- [ACT-014] 当用户可能在中途插入问题时，优先把非阻塞子任务放到多个 agent 后台并行处理，主线程保持可随时切换与响应。
+  Source: user explicit preference / interruption-friendly collaboration
 - [ACT-008] 在任务中优先使用合适的 skill、现成工具、已有脚本和现有工作流完成目标，不要不必要地从头造轮子。
   Source: user explicit preference / tool reuse
 - [ACT-009] 进度更新只做状态汇报，不要写成像在征求许可或再次发问的句式。
@@ -40,4 +42,4 @@
 - 当前焦点可定期收缩或替换，避免无限膨胀。
 
 ## Last Reviewed
-- 2026-03-29
+- 2026-03-30

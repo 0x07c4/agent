@@ -3,6 +3,9 @@ model_reasoning_effort = "xhigh"
 personality = "pragmatic"
 plan_mode_reasoning_effort = "xhigh"
 service_tier = "fast"
+approvals_reviewer = "guardian_subagent"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
 
 [notice]
 hide_gpt5_1_migration_prompt = true
@@ -14,6 +17,9 @@ hide_rate_limit_model_nudge = true
 
 [features]
 multi_agent = true
+js_repl = true
+guardian_approval = true
+prevent_idle_sleep = true
 
 [plugins."github@openai-curated"]
 enabled = true
