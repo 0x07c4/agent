@@ -29,6 +29,8 @@
   Source: user explicit preference / long-term notes
 - [ACT-013] `~/workspace/notes` 会同步到 `git@github.com:0x07c4/notes.git`，可视为用户长期思考的稳定、版本化来源。
   Source: user explicit preference / notes sync
+- [ACT-015] 记录或更新文档时，优先梳理、归纳和重组结构，不要默认在原文末尾持续追加，避免文档退化为流水账。
+  Source: user correction / documentation maintenance preference
 
 ## Current Focus
 - 把 Solo 从“长文字分析”继续收成“视觉化决策流”：
