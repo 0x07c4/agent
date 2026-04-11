@@ -1,5 +1,59 @@
 # ERRORS
 
+## [ERR-20260411-002] codex-apps-wham-blocked-by-chatgpt-edge
+**Logged**: 2026-04-11T00:00:00+08:00
+**Priority**: medium
+**Status**: pending
+
+### Summary
+`codex_apps` 启动失败时，如果 `auth.json` 里登录态看起来正常，不要先把问题归因到 token 过期；这次实际根因是访问 `https://chatgpt.com/backend-api/wham/apps` 时被 ChatGPT/Cloudflare 边缘返回了拦截 HTML，导致 MCP 握手拿到的不是 JSON。
+
+### Error
+```text
+MCP startup failed: handshaking with MCP server failed
+...
+error sending request for url (https://chatgpt.com/backend-api/wham/apps)
+...
+Unexpected content type: text/html; charset=UTF-8
+...
+Unable to load site
+```
+
+### Context
+- Command: Codex CLI / TUI 启动 `codex_apps` MCP
+- Situation: 会话启动时出现 `MCP startup incomplete (failed: codex_apps)`
+- Environment: Linux desktop / `auth_mode = "chatgpt"` / 本地 auth 存在
+
+### Suggested Fix
+- 先查 `$HOME/.codex/log/codex-tui.log`，不要只看前台警告
+- 如果日志里出现 `Unexpected content type: text/html`、`Unable to load site` 或 Cloudflare/Ray ID，优先判断为网络出口、VPN、代理、IPv6 或 IP 风控问题，而不是本地 MCP 配置错误
+- 可用外部探针快速分层：对 `https://chatgpt.com/backend-api/wham/apps` 做 `HEAD`，若返回 `405` 且 `Allow: POST`，再做最小 `POST {}`；若返回 `401 JSON`，说明链路已恢复，剩下更可能是客户端态或瞬时边缘问题
+- 这类情况下，单纯重新登录通常不是首选；更有效的是换网络、关 VPN/代理、尝试不同出口，必要时优先测试是否能从浏览器正常打开 `chatgpt.com`
+- 如果只是 `codex_apps` 失败而主模型连接正常，说明问题可能只落在 `chatgpt.com/backend-api/wham/apps` 这条链路上，不要误判成整个 Codex 都不可用
+
+## [ERR-20260411-001] gtk-widget-instantiation-segfaults-headless
+**Logged**: 2026-04-11T00:00:00+08:00
+**Priority**: medium
+**Status**: pending
+
+### Summary
+在无图形会话里直接用 Python/GI 实例化 GTK widget 进行布局探测，可能不会优雅报错，而是直接触发段错误。
+
+### Error
+```text
+Process exited with code 139
+```
+
+### Context
+- Command: `python - <<'PY' ... Gtk.Label() / Gtk.Box() ... PY`
+- Situation: 想在终端里无头验证 GTK widget 默认属性与可见性
+- Environment: Linux / PyGObject / GTK4 / 无可用 display
+
+### Suggested Fix
+- 不要把“导入成功”推断成“可以无头实例化 widget”
+- 涉及 GTK widget 树调试时，优先在真实图形会话里运行，或先做 `Gtk.init_check()` / display 检查
+- 无头环境下尽量只检查模块、版本和纯 Python 数据，不直接 new GTK widget
+
 ## [ERR-20260324-001] codex-workspace-latency
 **Logged**: 2026-03-24T00:00:00+08:00
 **Priority**: high
