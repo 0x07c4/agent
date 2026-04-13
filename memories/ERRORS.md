@@ -313,3 +313,27 @@ Invalid card number '0'.
 - 先不要把问题误判成“系统没有声卡”
 - 在这个环境里优先使用 `wpctl`、`pactl`、`journalctl` 做诊断
 - 如果必须看 ALSA mixer，改让用户在自己的图形终端或真实 shell 里执行 `amixer` / `alsamixer`
+
+## [ERR-20260413-001] xelatex-fontspec-hardcoded-font-name-may-fail-across-hosts
+**Logged**: 2026-04-13T22:15:00+08:00
+**Priority**: low
+**Status**: pending
+
+### Summary
+在 XeLaTeX 项目里给 `fontspec` / `ctex` 直接写死一个看起来常见的字体名，不代表当前主机一定能解析到；即使 TeX Live 已完整安装，也可能因为字体注册名不一致而直接编译失败。
+
+### Error
+```text
+! Package fontspec Error:
+(fontspec)                The font "Latin Modern Roman" cannot be found;
+```
+
+### Context
+- Command: `make pdf`
+- Situation: 为了减少 XeLaTeX 字体 warning，尝试在模板里加入 `\setmainfont{Latin Modern Roman}`
+- Environment: Codex shell / Linux / XeLaTeX 可用 / `fontspec` 可用，但宿主机字体注册名与预期不一致
+
+### Suggested Fix
+- 不要为了“清空 warning”随手给模板加入未经验证的宿主机字体名
+- 如果项目本来已经能编译，优先保留可移植配置
+- 只有在先确认 `fc-list` / 目标环境字体清单后，再加 `\setmainfont{...}`
