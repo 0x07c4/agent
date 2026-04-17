@@ -1,5 +1,28 @@
 # ERRORS
 
+## [ERR-20260417-001] eastmoney-urllib-remote-disconnected
+**Logged**: 2026-04-17T00:00:00+08:00
+**Priority**: medium
+**Status**: pending
+
+### Summary
+访问东方财富 `push2his.eastmoney.com` 的分时/`K` 线接口时，`urllib` 和基于它的 `requests/urllib3` 可能被服务端直接断开连接，但同一 URL 用 `curl` 可以正常返回 JSON。
+
+### Error
+```text
+http.client.RemoteDisconnected: Remote end closed connection without response
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected(...))
+```
+
+### Context
+- Command: Python `urllib.request.urlopen(...)` / `requests.get(...)`
+- Situation: 拉取东财 `trends2/get` 或 `kline/get`
+- Environment: Linux / Python 3.14
+
+### Suggested Fix
+- 东财行情抓取层不要只依赖 `urllib`；遇到 `RemoteDisconnected` 时优先自动回退到 `curl`
+- 如果 UI 当前只显示“待同步”占位态，要把真实错误文本直接透传到图表区域，避免静默吞错
+
 ## [ERR-20260411-002] codex-apps-wham-blocked-by-chatgpt-edge
 **Logged**: 2026-04-11T00:00:00+08:00
 **Priority**: medium
@@ -48,11 +71,13 @@ Process exited with code 139
 - Command: `python - <<'PY' ... Gtk.Label() / Gtk.Box() ... PY`
 - Situation: 想在终端里无头验证 GTK widget 默认属性与可见性
 - Environment: Linux / PyGObject / GTK4 / 无可用 display
+- Follow-up: 直接实例化 `Gtk.DrawingArea` 并导入包含自定义绘图控件的模块（如 `chop.app` 里的图表组件）做离屏渲染验证，也可能同样以 `code 139` 崩掉
 
 ### Suggested Fix
 - 不要把“导入成功”推断成“可以无头实例化 widget”
 - 涉及 GTK widget 树调试时，优先在真实图形会话里运行，或先做 `Gtk.init_check()` / display 检查
 - 无头环境下尽量只检查模块、版本和纯 Python 数据，不直接 new GTK widget
+- 如果想验证绘图结果，优先在真实图形会话里跑应用，或把 Cairo 绘制逻辑继续下沉到不依赖 GTK widget 实例化的纯函数
 
 ## [ERR-20260324-001] codex-workspace-latency
 **Logged**: 2026-03-24T00:00:00+08:00
