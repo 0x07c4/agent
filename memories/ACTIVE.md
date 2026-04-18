@@ -31,6 +31,8 @@
   Source: user explicit preference / notes sync
 - [ACT-015] 记录或更新文档时，优先梳理、归纳和重组结构，不要默认在原文末尾持续追加，避免文档退化为流水账。
   Source: user correction / documentation maintenance preference
+- [ACT-016] 做 plan 和实现推进时，要同步沉淀可交接的结构化文档，保证切换到其他 agent 后也能快速理解上下文；优先更新现有文档或状态说明，不要只把关键上下文留在对话里。
+  Source: user explicit preference / handoff continuity
 
 ## Current Focus
 - 把 Solo 从“长文字分析”继续收成“视觉化决策流”：
