@@ -362,3 +362,43 @@ Invalid card number '0'.
 - 不要为了“清空 warning”随手给模板加入未经验证的宿主机字体名
 - 如果项目本来已经能编译，优先保留可移植配置
 - 只有在先确认 `fc-list` / 目标环境字体清单后，再加 `\setmainfont{...}`
+
+## [ERR-20260423-001] chmod-may-fail-on-workspace-files-even-when-file-writes-succeed
+**Logged**: 2026-04-23T00:00:00+08:00
+**Priority**: low
+**Status**: noted
+
+### Summary
+在当前 Codex sandbox 里，即使可以通过 `apply_patch` 正常创建或修改仓库内文件，后续对同一路径执行 `chmod` 仍可能失败并报只读文件系统。
+
+### Error
+```text
+chmod: changing permissions of '.codex/skills/openpencil/scripts/check_openpencil_env.sh': Read-only file system
+```
+
+### Context
+- Command: `chmod +x .codex/skills/openpencil/scripts/check_openpencil_env.sh`
+- Situation: 新建本地 skill 后，准备给脚本补执行权限
+- Environment: Codex shell / workspace-write sandbox / 同一路径文件内容可正常写入
+
+### Suggested Fix
+- 不要把 `chmod` 是否成功当成文件是否可用的前提
+- 优先直接用 `bash script.sh` 运行脚本
+- 如果确实依赖可执行位，再评估是否需要提权或改到可变更权限的目录
+
+## [ERR-20260423-002] project-local-skills-cleanup-may-leave-a-readonly-dot-agents-sentinel
+**Logged**: 2026-04-23T00:00:00+08:00
+**Priority**: low
+**Status**: noted
+
+### Summary
+在当前环境里，删除 repo 内由 `skills add` 生成的 `.agents/` 目录后，根目录可能残留一个只读的空 `.agents` 文件；单纯 `rm` 后它仍会继续存在。
+
+### Context
+- Situation: 将 `huashu-design` 从项目级安装迁移为全局安装后，清理 `./.agents` 痕迹
+- Observation: `.agents/` 目录删除后，仓库根目录出现 `0444` 权限的空文件 `.agents`
+
+### Suggested Fix
+- 不要在这里反复和这个哑文件搏斗
+- 直接把 `.agents`、`.claude/`、`skills-lock.json` 写入 `.gitignore`
+- 把这类文件视为外部 skill 管理器的环境产物，而不是业务代码的一部分
