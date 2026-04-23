@@ -33,6 +33,8 @@
   Source: user correction / documentation maintenance preference
 - [ACT-016] 做 plan 和实现推进时，要同步沉淀可交接的结构化文档，保证切换到其他 agent 后也能快速理解上下文；优先更新现有文档或状态说明，不要只把关键上下文留在对话里。
   Source: user explicit preference / handoff continuity
+- [ACT-017] 需要纳入个人 agent 全局配置与 `agent.git` 同步链的 skills，一律以 `~/.codex/skills` 为标准安装位置；`~/.agents/skills` 只视为外部工具自己的运行目录，不作为主真源。
+  Source: user explicit preference / agent global config workflow
 
 ## Current Focus
 - 把 Solo 从“长文字分析”继续收成“视觉化决策流”：
