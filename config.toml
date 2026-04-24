@@ -1,4 +1,4 @@
-model = "gpt-5.4"
+model = "gpt-5.5"
 model_reasoning_effort = "high"
 personality = "pragmatic"
 plan_mode_reasoning_effort = "xhigh"
@@ -27,3 +27,6 @@ enabled = true
 
 [apps.connector_76869538009648d5b282a4bb21c3d157.tools.github_create_file]
 approval_mode = "approve"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 2
