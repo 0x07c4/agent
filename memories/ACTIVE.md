@@ -35,6 +35,10 @@
   Source: user explicit preference / handoff continuity
 - [ACT-017] 需要纳入个人 agent 全局配置与 `agent.git` 同步链的 skills，一律以 `~/.codex/skills` 为标准安装位置；`~/.agents/skills` 只视为外部工具自己的运行目录，不作为主真源。
   Source: user explicit preference / agent global config workflow
+- [ACT-018] 复杂任务的设计、plan、监督、纠正、review 等工作优先由 GPT-5.5 承担；具体、可执行、可并行的子任务优先交给 `gpt-5.3-codex-spark`，因为 Pro 订阅已可用且该模型速度更快。
+  Source: user explicit preference / model orchestration
+- [ACT-019] UI 设计默认避免显式滚动条；优先通过信息取舍、折叠、分页、密度调整和固定区域解决溢出，不把内部滚动作为默认方案。
+  Source: user explicit preference / UI design
 
 ## Current Focus
 - 把 Solo 从“长文字分析”继续收成“视觉化决策流”：
@@ -49,3 +53,5 @@
 
 ## Last Reviewed
 - 2026-03-30
+- [ACT-020] 在用户的 niri/Wayland 环境中检查真实 GUI/Tauri 窗口时，不要用独立浏览器截图；先用 `niri msg windows` 找目标窗口 ID，再用 `niri msg action screenshot-window --id <id> --path /tmp/...` 截指定窗口，避免丢登录态或误截当前终端。
+  Source: user environment / Solo UI workflow

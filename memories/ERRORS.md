@@ -1,5 +1,27 @@
 # ERRORS
 
+## [ERR-20260425-001] vite-dev-server-listen-eperm-in-sandbox
+**Logged**: 2026-04-25T00:00:00+08:00
+**Priority**: low
+**Status**: pending
+
+### Summary
+在 Codex sandbox 内直接启动 Vite dev server 可能因为监听本地端口失败而返回 `EPERM`；同一命令用审批后的 escalated 权限可以正常启动。
+
+### Error
+```text
+Error: listen EPERM: operation not permitted 127.0.0.1:5173
+```
+
+### Context
+- Command: `npm run dev -- --host 127.0.0.1`
+- Situation: 为前端改动启动本地预览服务
+- Environment: Linux / Codex workspace-write sandbox / Vite
+
+### Suggested Fix
+- 如果 Vite/本地服务启动因 `listen EPERM` 失败，直接按 sandbox 策略用 `require_escalated` 重跑同一命令
+- 不要误判成端口占用或 Vite 配置错误，除非错误信息是 `EADDRINUSE`
+
 ## [ERR-20260417-001] eastmoney-urllib-remote-disconnected
 **Logged**: 2026-04-17T00:00:00+08:00
 **Priority**: medium
@@ -402,3 +424,40 @@ chmod: changing permissions of '.codex/skills/openpencil/scripts/check_openpenci
 - 不要在这里反复和这个哑文件搏斗
 - 直接把 `.agents`、`.claude/`、`skills-lock.json` 写入 `.gitignore`
 - 把这类文件视为外部 skill 管理器的环境产物，而不是业务代码的一部分
+
+## [ERR-20260425-001] asyncio-to-thread-can-hang-in-current-codex-sandbox
+**Logged**: 2026-04-25T00:00:00+08:00
+**Priority**: medium
+**Status**: noted
+
+### Summary
+在当前 Codex Linux sandbox 里，Python `asyncio.to_thread()` 包同步 provider HTTP 调用时，单元测试会挂住且没有正常返回；去掉 `to_thread()` 后同一 mocked `urllib.request.urlopen` 测试立即通过。
+
+### Context
+- Project: `cocoa`
+- Situation: 为 OpenAI-compatible provider adapter 写 stdlib-only HTTP 客户端
+- Observation: `asyncio.to_thread(self._complete_sync, request)` 进入测试后卡住；直接 `return self._complete_sync(request)` 后 `unittest` 全量通过
+
+### Suggested Fix
+- 在当前 sandbox 下，不要默认用 `asyncio.to_thread()` 包 provider 调用
+- MVP 阶段宁可保持同步 HTTP 调用，等需要并发 provider 时再引入明确可测的 executor/worker 设计
+- 回归测试用 `timeout` 包裹整轮 unittest，避免挂起进程阻塞任务
+## [ERR-20260425-001] git-commit-fails-read-only-dotgit
+**Logged**: 2026-04-25T00:00:00+08:00
+**Priority**: medium
+**Status**: resolved
+
+### Summary
+`git commit` 直接失败：`Unable to create '.git/index.lock': Read-only file system`。
+
+### Error
+```text
+fatal: Unable to create '$HOME/workspace/cocoa/.git/index.lock': Read-only file system
+```
+
+### Context
+- Task: 提交 cocoa 修改
+- Environment: 工作区只允许特定写路径，`.git` 目录不可写
+
+### Suggested Fix
+- 使用已批准的提权执行提交（或要求放开该路径写权限），再重试。
