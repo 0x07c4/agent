@@ -1,5 +1,27 @@
 # ERRORS
 
+## [ERR-20260426-001] skill-creator-init-script-not-executable
+**Logged**: 2026-04-26T00:00:00+08:00
+**Priority**: low
+**Status**: noted
+
+### Summary
+系统 skill-creator 的 `init_skill.py` 在当前环境里不能直接执行，会返回 `permission denied`；用 `python3 path/to/init_skill.py ...` 可以正常初始化 skill。
+
+### Error
+```text
+zsh:1: permission denied: $HOME/.codex/skills/.system/skill-creator/scripts/init_skill.py
+```
+
+### Context
+- Command: `$HOME/.codex/skills/.system/skill-creator/scripts/init_skill.py llm-wiki ...`
+- Situation: 创建全局 Codex `llm-wiki` skill
+- Environment: Linux / Codex sandbox / skill-creator system skill
+
+### Suggested Fix
+- 初始化 skill 时优先用 `python3 $HOME/.codex/skills/.system/skill-creator/scripts/init_skill.py ...`
+- 不要把这个错误误判成 skill-creator 不可用或路径错误
+
 ## [ERR-20260425-001] vite-dev-server-listen-eperm-in-sandbox
 **Logged**: 2026-04-25T00:00:00+08:00
 **Priority**: low
@@ -461,3 +483,14 @@ fatal: Unable to create '$HOME/workspace/cocoa/.git/index.lock': Read-only file 
 
 ### Suggested Fix
 - 使用已批准的提权执行提交（或要求放开该路径写权限），再重试。
+
+## 2026-04-26 - 中断后的 Spark 半成品代码导致 Rust 编译失败
+
+在 Solo 中，之前把 runtime projection 任务交给 Spark 后被中断，留下了未完成的 `src-tauri/src/lib.rs` 改动：错误作用域引用 `execution_mode/workspace/state_handle/current_turn_id`、move 后继续借用 `stage/detail/level/turn_intent`、非 Result 函数里使用 `?`、以及错误解构 `Option<usize>`。经验：中断 worker 后必须先清理/编译验证半成品代码，再继续产品或实现讨论。
+
+## 2026-04-26 - TTY raw mode 会破坏 CLI composer 换行重绘
+
+在 terminal-native CLI 里用 `tty.setraw()` 做逐键输入时，会关闭输出处理，导致 `\n` 不再自动回到行首，菜单重绘会在真实终端中斜向错位。经验：轻量 composer 优先用 `tty.setcbreak()`，并对重绘输出使用明确的换行策略；真实 PTY 验证要覆盖输入 `/` 后的多行候选菜单。
+
+## 2026-04-26 - OpenPencil CLI 路径误判
+在 Solo v3 画稿任务中，错误判断 v2 曾通过 OpenPencil chat/agent 入口生成。用户纠正：v2 也是通过 skill 直接操纵 OpenPencil Desktop。后续使用 OpenPencil 时应先确认实际可用命令和历史成功路径，不能把失败归因到用户未配置 agent chat。当前环境里 sandbox 内 `op status` 会误报 false，需要在 sandbox 外执行；`op design` 0.7.4 吃 batch DSL，不吃 Markdown/natural-language brief。

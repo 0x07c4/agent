@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO="${LLM_WIKI_REPO:-$HOME/workspace/wiki}"
+PYTHON_BIN="${PYTHON_BIN:-python3}"
+
+if [[ ! -d "$REPO" ]]; then
+  printf 'llm-wiki repo not found: %s\n' "$REPO" >&2
+  exit 2
+fi
+
+if [[ ! -d "$REPO/src/llm_wiki" ]]; then
+  printf 'llm-wiki package not found under: %s/src/llm_wiki\n' "$REPO" >&2
+  exit 2
+fi
+
+PYTHONPATH="$REPO/src${PYTHONPATH:+:$PYTHONPATH}" \
+  "$PYTHON_BIN" -m llm_wiki.cli --repo-root "$REPO" "$@"

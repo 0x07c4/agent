@@ -39,6 +39,12 @@
   Source: user explicit preference / model orchestration
 - [ACT-019] UI 设计默认避免显式滚动条；优先通过信息取舍、折叠、分页、密度调整和固定区域解决溢出，不把内部滚动作为默认方案。
   Source: user explicit preference / UI design
+- [ACT-021] 当任务需要本地长期上下文、agent/wiki/Obsidian/skills/AI agent 领域背景或可追溯知识时，优先使用 `$HOME/.codex/skills/llm-wiki` 和 `$HOME/workspace/wiki` 的 `llm-wiki` 工具查询，不要只靠对话记忆或全仓库扫描。
+  Source: local llm-wiki Codex integration
+- [ACT-022] 工程和 UI 实现遵循“如无必要，勿增实现”：不要因为有数据、能力或状态就默认暴露到界面；新增实现必须服务当前任务、用户决策、风险提示或明确的调试入口。
+  Source: user explicit preference / Solo UI correction
+- [ACT-023] Codex skill 的唯一主安装位置是 `~/.codex/skills`；第三方工具自己的 bundled 目录只作为 upstream cache。工具升级后先同步作者提供的 skill 到主安装目录，再做项目内补充；不要在 repo 内维护通用 skill fork 来 shadow 全局新版。
+  Source: user correction / skill installation policy
 
 ## Current Focus
 - 把 Solo 从“长文字分析”继续收成“视觉化决策流”：
