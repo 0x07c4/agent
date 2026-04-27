@@ -494,3 +494,10 @@ fatal: Unable to create '$HOME/workspace/cocoa/.git/index.lock': Read-only file 
 
 ## 2026-04-26 - OpenPencil CLI 路径误判
 在 Solo v3 画稿任务中，错误判断 v2 曾通过 OpenPencil chat/agent 入口生成。用户纠正：v2 也是通过 skill 直接操纵 OpenPencil Desktop。后续使用 OpenPencil 时应先确认实际可用命令和历史成功路径，不能把失败归因到用户未配置 agent chat。当前环境里 sandbox 内 `op status` 会误报 false，需要在 sandbox 外执行；`op design` 0.7.4 吃 batch DSL，不吃 Markdown/natural-language brief。
+
+## 2026-04-27 - Neovim Treesitter 单节点列表捕获导致 get_range 报错
+
+在 Neovim v0.12.2 + AstroNvim/Snacks/nvim-treesitter main 组合中，打开 Markdown 时可能报：
+`vim/treesitter.lua:196: attempt to call method 'range' (a nil value)`，栈通常经过 `snacks/scope.lua` 或 Treesitter highlighter。
+
+调试确认 `vim.treesitter.get_range()` 收到的 `node` 是 `{ <TSNode> }` 单元素列表，而不是直接的 TSNode。不要只改 Markdown query；更小的兼容方式是在本地启动期包一层 `vim.treesitter.get_range`，仅当 `node` 是单元素 TSNode list 时解包再调用原函数。
