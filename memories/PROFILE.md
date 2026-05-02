@@ -3,6 +3,9 @@
 ## User Role
 - 个人开发者，主要在 Linux 环境下工作。
 - 正在构建 `Solo`，一个面向个人开发的人机协作式 AI 工作台。
+- 正在寻找 AI 相关工作，适合把 `cocoa` / `Solo` 包装成 AI developer tools、agent runtime、human-in-the-loop 协作系统方向的作品与经验。
+- 求职材料与职业转型相关仓库位于 `$HOME/workspace/career-transition`。
+- 对 AI 编程工具有 token / 额度焦虑；短期希望 `cocoa` 能作为 provider-agnostic 的成本与能力路由层，支持 ChatGPT Plus 订阅、DeepSeek API、local model 等组合式 vibe coding。
 
 ## Technical Level
 - 熟悉前端、桌面端、命令行与代码仓库工作流。
@@ -22,4 +25,4 @@
 - 能留在前端的逻辑尽量留在前端，Rust 更适合作为系统桥接层。
 
 ## Last Updated
-- 2026-03-24
+- 2026-05-02

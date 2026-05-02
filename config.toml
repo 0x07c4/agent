@@ -31,3 +31,18 @@ approval_mode = "approve"
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4
+
+[model_providers.lmstudio-local]
+name = "lmstudio-local"
+base_url = "http://127.0.0.1:1234/v1"
+env_key = "LMSTUDIO_API_KEY"
+wire_api = "responses"
+
+[profiles.local9b]
+model_providers = "lmstudio"
+model = "qwen/qwen3.5-9b"
+service_tier = "fast"
+
+[profiles.local4b]
+model_provider = "lmstudio"
+model = "qwen3.5-4b"
