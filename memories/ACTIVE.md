@@ -45,6 +45,8 @@
   Source: user explicit preference / Solo UI correction
 - [ACT-023] Codex skill 的唯一主安装位置是 `~/.codex/skills`；第三方工具自己的 bundled 目录只作为 upstream cache。工具升级后先同步作者提供的 skill 到主安装目录，再做项目内补充；不要在 repo 内维护通用 skill fork 来 shadow 全局新版。
   Source: user correction / skill installation policy
+- [ACT-024] Codex 中已集成 RTK；对 `git diff/status/log`、测试、lint、构建、包管理、Docker/Kubernetes 等高噪声命令优先使用 `rtk` 压缩输出，但不要包装 `pwd`、`test`、`mkdir`、`command -v`、短 `sed` 等本来就简短且需要精确输出的命令。
+  Source: RTK Codex integration / user request
 
 ## Current Focus
 - 把 Solo 从“长文字分析”继续收成“视觉化决策流”：

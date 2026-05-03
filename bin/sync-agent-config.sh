@@ -133,11 +133,13 @@ copy_rules() {
 copy_memories() {
   if [[ -d "$CODEX_HOME/memories" ]]; then
     cp -R "$CODEX_HOME/memories" "$EXPORT_DIR/memories"
+    rm -rf "$EXPORT_DIR/memories/rtk"
   fi
 }
 
 copy_agents() {
   copy_if_exists "$CODEX_HOME/AGENTS.md" "$EXPORT_DIR/AGENTS.md"
+  copy_if_exists "$CODEX_HOME/RTK.md" "$EXPORT_DIR/RTK.md"
 }
 
 copy_sync_helper() {
@@ -240,6 +242,7 @@ This repository stores a sanitized snapshot of a local Codex setup.
 
 Included:
 - `AGENTS.md`
+- `RTK.md`
 - `bin/sync-agent-config.sh`
 - `systemd/`
 - `docs/systemd-sync.md`
@@ -257,6 +260,7 @@ Excluded:
 - `logs_*.sqlite*`
 - `state_*.sqlite*`
 - `models_cache.json`
+- `memories/rtk/`
 - `tmp/`
 - `shell_snapshots/`
 
@@ -292,6 +296,7 @@ log/
 logs_*.sqlite*
 state_*.sqlite*
 models_cache.json
+memories/rtk/
 tmp/
 shell_snapshots/
 EOF

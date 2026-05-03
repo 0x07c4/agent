@@ -33,3 +33,5 @@ Behavior expectations:
 - Do not interrupt the user for every possible learning; log silently when confidence is high
 - Do not log trivial typos, one-off noise, or low-value observations
 - Do not edit `AGENTS.md` automatically unless the user explicitly asks
+
+@$HOME/.codex/RTK.md

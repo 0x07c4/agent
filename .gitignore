@@ -6,5 +6,6 @@ log/
 logs_*.sqlite*
 state_*.sqlite*
 models_cache.json
+memories/rtk/
 tmp/
 shell_snapshots/

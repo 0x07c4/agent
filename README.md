@@ -4,6 +4,7 @@ This repository stores a sanitized snapshot of a local Codex setup.
 
 Included:
 - `AGENTS.md`
+- `RTK.md`
 - `bin/sync-agent-config.sh`
 - `systemd/`
 - `docs/systemd-sync.md`
@@ -21,6 +22,7 @@ Excluded:
 - `logs_*.sqlite*`
 - `state_*.sqlite*`
 - `models_cache.json`
+- `memories/rtk/`
 - `tmp/`
 - `shell_snapshots/`
 
