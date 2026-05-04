@@ -22,12 +22,19 @@ js_repl = true
 guardian_approval = true
 prevent_idle_sleep = true
 image_detail_original = true
+terminal_resize_reflow = true
+memories = true
+external_migration = true
 
 [plugins."github@openai-curated"]
 enabled = true
 
 [apps.connector_76869538009648d5b282a4bb21c3d157.tools.github_create_file]
 approval_mode = "approve"
+
+[tui]
+status_line = ["model-with-reasoning", "current-dir", "five-hour-limit"]
+theme = "gruvbox-dark"
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4

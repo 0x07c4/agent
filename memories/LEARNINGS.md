@@ -1,5 +1,26 @@
 # LEARNINGS
 
+## [LRN-20260504-001] recurring-collection-must-match-target-scope
+**Logged**: 2026-05-04T00:00:00+08:00
+**Priority**: high
+**Status**: pending
+
+### Summary
+做周期性资料收集时，不能只按大类关键词扩量；必须把搜索词、相关性规则和阅读优先区收敛到用户当前真实目标。
+
+### Details
+用户纠正：面经采集里泛 `AI infra` 结果太多，但用户真正适合主攻的是 `agent infrastructure / agent runtime / AI coding platform / developer tools infra / observability / eval` 交叉区。泛 LLM 题库、GPU/CUDA/训练框架、AI 工程师题库、求职攻略即使命中 AI 关键词，也会稀释注意力。
+
+### Suggested Action
+- 先定义目标岗位原型，再写搜索词
+- 搜索词优先使用角色和场景，例如 `agent infrastructure interview experience`，避免泛 `AI infra 面经`
+- 阅读优先区只展示和目标强相关且有真实面经信号的结果
+- 宁可少而准，不要用泛关键词制造“收集很多”的假进展
+
+### Metadata
+- Source: user correction / conversation
+- Tags: research, collection, job-search, relevance, scoping
+
 ## [LRN-20260502-001] recurring-work-needs-scheduler
 **Logged**: 2026-05-02T00:00:00+08:00
 **Priority**: high
