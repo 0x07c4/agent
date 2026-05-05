@@ -1,13 +1,36 @@
 # Global AGENTS
 
+## Token Budget
+
+Input tokens are the primary budget risk. Default to token-efficient operation:
+
+- Start with a judgment from existing context before doing broad investigation.
+- Prefer `rg` and narrow line reads over opening whole large files.
+- Do not start subagents unless the user explicitly asks for agents,
+  delegation, or parallel work.
+- Do not run lint/build/test/check commands unless verification is necessary
+  for a code change or the user asks for validation.
+- Avoid commands that produce large diffs/logs; use summarized tooling such as
+  `rtk` for noisy engineering commands.
+- In `省额度` mode, do the minimum necessary read/command set and ask before any
+  high-input-cost operation.
+
 ## Self-Improvement
 
 Use the global memory directory at `$HOME/.codex/memories`.
 
-Before starting any task:
-1. Read `$HOME/.codex/memories/PROFILE.md`
-2. Read `$HOME/.codex/memories/ACTIVE.md`
-3. Apply them as global memory before analyzing the user request
+Default to token-efficient memory use. The injected memory summary is the first
+source of truth; do not reread memory files for every task.
+
+Before starting a task:
+1. Use the injected memory summary first.
+2. Read `$HOME/.codex/memories/PROFILE.md` / `ACTIVE.md` only when the task is
+   non-trivial, history-sensitive, preference-sensitive, or the summary is
+   insufficient.
+3. In `省额度` mode, skip memory file reads unless the user explicitly asks for
+   memory lookup or the task cannot be answered safely without it.
+4. Search `MEMORY.md` or rollout summaries only after a specific, relevant need
+   is identified; do not do broad memory scans by default.
 
 Log only when the outcome is non-obvious, reusable, or likely to recur.
 
