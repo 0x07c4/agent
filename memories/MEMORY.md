@@ -1,3 +1,90 @@
+# Task Group: career-transition positioning and interview intelligence
+
+scope: `$HOME/workspace/career-transition` as a structured job-search system, including role prioritization, transition narrative, and the now-runnable-but-still-human-filtered interview-intel collection loop.
+applies_to: cwd=$HOME/workspace/career-transition; reuse_rule=safe for this repo and closely related career-packaging tasks; treat file lists, timers, and commit refs as checkout-specific
+
+## Task 1: Build the repo as a job-search decision system and prioritize AI systems roles
+
+### rollout_summary_files
+
+- rollout_summaries/2026-05-02T11-46-19-DJx1-cocoa_cost_aware_runtime_and_job_search_positioning.md (cwd=$HOME/workspace/cocoa, rollout_path=$HOME/.codex/sessions/2026/05/02/rollout-2026-05-02T19-46-19-019de882-cdd2-7971-9bda-4e97a29ecafb.jsonl, updated_at=2026-05-02T12:22:06+00:00, thread_id=019de882-cdd2-7971-9bda-4e97a29ecafb, cross-links cocoa/Solo narrative into job search)
+- rollout_summaries/2026-05-02T05-49-25-TYv5-career_transition_ai_systems_and_interview_intel.md (cwd=$HOME/workspace/career-transition, rollout_path=$HOME/.codex/sessions/2026/05/02/rollout-2026-05-02T13-49-25-019de73c-0dca-7383-92b1-2625742bffef.jsonl, updated_at=2026-05-02T09:51:21+00:00, thread_id=019de73c-0dca-7383-92b1-2625742bffef, repo setup + positioning)
+
+### keywords
+
+- career-transition, AI systems, agent runtime, developer tools, Bosch, automotive exit, GOALS.md, targets/role-archetypes.md, positioning/transition-narrative.md, cocoa-solo-agent-runtime-project.md
+
+## Task 2: Make interview-intel recurring collection executable and readable, not just documented
+
+### rollout_summary_files
+
+- rollout_summaries/2026-05-02T11-26-14-TQUm-interview_intel_recurring_collection_domestic_scope.md (cwd=$HOME/workspace/career-transition, rollout_path=$HOME/.codex/sessions/2026/05/02/rollout-2026-05-02T19-26-14-019de870-68fc-7712-b2fb-c3a2c6142bbe.jsonl, updated_at=2026-05-04T09:56:29+00:00, thread_id=019de870-68fc-7712-b2fb-c3a2c6142bbe, timer + inbox + review flow landed)
+- rollout_summaries/2026-05-02T05-49-25-TYv5-career_transition_ai_systems_and_interview_intel.md (cwd=$HOME/workspace/career-transition, rollout_path=$HOME/.codex/sessions/2026/05/02/rollout-2026-05-02T13-49-25-019de73c-0dca-7383-92b1-2625742bffef.jsonl, updated_at=2026-05-02T09:51:21+00:00, thread_id=019de73c-0dca-7383-92b1-2625742bffef, original structure before execution path existed)
+
+### keywords
+
+- interview-intel, systemd --user timer, scripts/collect-interview-intel-week.sh, scripts/install-interview-intel-timer.sh, radar.csv, review.md, inbox, 定期收集最近的面试经验, CSV 底表 + Markdown 阅读面
+
+## Task 3: Narrow interview-intel to domestic Chinese real interview reports first
+
+### rollout_summary_files
+
+- rollout_summaries/2026-05-02T11-26-14-TQUm-interview_intel_recurring_collection_domestic_scope.md (cwd=$HOME/workspace/career-transition, rollout_path=$HOME/.codex/sessions/2026/05/02/rollout-2026-05-02T19-26-14-019de870-68fc-7712-b2fb-c3a2c6142bbe.jsonl, updated_at=2026-05-04T09:56:29+00:00, thread_id=019de870-68fc-7712-b2fb-c3a2c6142bbe, scope tightened after noisy results)
+
+### keywords
+
+- 国内中文真实面经, 牛客, 一亩三分地, 知乎, 掘金, 博客园, CSDN, search-queries.csv, relevance-rules.csv, agent runtime, AI coding platform, developer tools infra, interview guide, mock interview, questions and answers
+
+## Task 4: Today’s inbox is updated, but promotion into `radar.csv` is still pending
+
+### rollout_summary_files
+
+- rollout_summaries/2026-05-02T11-26-14-TQUm-interview_intel_recurring_collection_domestic_scope.md (cwd=$HOME/workspace/career-transition, rollout_path=$HOME/.codex/sessions/2026/05/02/rollout-2026-05-02T19-26-14-019de870-68fc-7712-b2fb-c3a2c6142bbe.jsonl, updated_at=2026-05-04T09:56:29+00:00, thread_id=019de870-68fc-7712-b2fb-c3a2c6142bbe, collection fresh, promotion incomplete)
+
+### keywords
+
+- interview-intel/inbox/2026-05-04.md, interview-intel/inbox/2026-05-04.csv, interview-intel/radar.csv, less interview-intel/inbox/$(date +%F).md, human-in-the-loop, promotion script
+
+## User preferences
+
+- when the user said "我最近打算换工作，我想先创建一个仓库来记录我的学习\\面试\\找工作的过程" -> default to a versioned repo/workflow, not a chat-only plan [Task 1]
+- when the user asked "这个仓库应该如何使用呢" -> provide an executable repo workflow, not just broad advice [Task 1]
+- when the user said "我现在也没有清晰的目标，你能帮我设计吗" -> produce an iterative first pass and then help narrow it, instead of waiting for perfect inputs [Task 1]
+- when the user clarified "并且我现在确实想离开汽车行业了" and then "把ai相关岗位的目标提升优先级" -> do not keep automotive software as the target lane; treat `AI systems / agent runtime / developer tools` as the job-search mainline [Task 1]
+- when the user said the repo should "提供收集面经的能力，定期收集最近的面试经验" and then challenged "你只是增加了一些文档，怎么做到定期收集面经呢" -> static structure is insufficient; future work needs an actual recurring execution path [Task 2]
+- when the user asked "这是一个爬虫工具吗，现在已经收集了吗" -> report whether data was actually collected, not just whether docs/scripts exist [Task 2]
+- when the user asked "收集成 csv 的话，怎么阅读呢？" -> default to a Markdown reading surface, not CSV-only output [Task 2]
+- when the user said "所以我觉得你应该收敛面经收集的范围" and then "今天的优先处理的3条都不像是面经" -> do not let interview guides, hiring pages, or 题库占据优先区; optimize for real interview reports first [Task 3]
+- when the user said "优先整理国内的面经" -> prioritize domestic Chinese real interview reports over overseas process pages or generic guides [Task 3]
+- when the user explicitly said "我刚才说你应该列好任务，让deepseek来做执行" -> for clearly decomposed execution tasks, hand off execution work to DeepSeek instead of repeatedly iterating in chat [Task 3]
+- when the user asked "deepseek已经执行完了，现在今天的面经已经更新了吗，还是我需要执行一下脚本？" and "我应该如何查看你收集的面经" -> answer with current sync status and a stable reading entrypoint immediately [Task 4]
+
+## Reusable knowledge
+
+- The repo is best framed as a job-search decision system, not a diary [Task 1]
+- Current role priority is `AI systems / agent runtime / developer tools` first, `performance / observability` as the supporting systems angle, and `edge platform` / `backend infrastructure` as backup entry points [Task 1]
+- Bosch / parking / SDV experience should be used as evidence of transferable systems ability, not as the next-industry target [Task 1]
+- The durable files for this repo are `GOALS.md`, `targets/role-archetypes.md`, `positioning/transition-narrative.md`, and the cocoa/Solo packaging docs that tie product work back to job-search narrative [Task 1]
+- Interview-intel now has a runnable local collection path: `systemd --user timer` triggers the weekly collection scripts, `inbox` is the candidate buffer, `radar.csv` is the filtered main table, and `review.md` is the human reading surface [Task 2]
+- `radar.csv` handles dedupe/state/script workflows, while `review.md` and `inbox/<date>.md` are the intended reading surfaces; "不要直接读 CSV" is the durable default for this flow [Task 2]
+- Interview-intel should prioritize recent 7-14 day signals with company/role/round/question-type detail and a concrete preparation action; avoid copying full posts or retaining private/internal information [Task 2]
+- For interview collection, “真实面经信号” is more important than generic “AI 相关” matching; prioritize 面经复盘、一面/二面、拿 offer/凉经、面试经历 over broad AI keyword hits [Task 3]
+- Domestic Chinese sources such as 牛客、一亩三分地、知乎、掘金、博客园、CSDN、个人博客 are the default high-priority channels for the current target [Task 3]
+- `interview guide`, `hiring strategy`, `mock interview`, `questions and answers`, 题库, 准备指南, and 招聘页 should be downgraded to noise or at most left in the full candidate set [Task 3]
+- The current “latest readable result” pattern is: today’s collection updates `interview-intel/inbox/<date>.md` and `.csv`; the user can read it directly with `less interview-intel/inbox/$(date +%F).md` without rerunning the script [Task 4]
+- The remaining missing piece is a human-in-the-loop promotion script from inbox into `radar.csv`; until that exists, inbox freshness does not mean the main table is curated [Task 4]
+
+## Failures and how to do differently
+
+- Symptom: role strategy feels wide and unfocused. Cause: starting with too many adjacent tracks at once. Fix: confirm industry exit and role-priority order early, then collapse the repo around that mainline [Task 1]
+- Symptom: the user rejects some apparently helpful career docs. Cause: assuming generic resignation/offboarding materials are needed. Fix: in mature-company exits like Bosch, focus on transition boundaries and job-search execution, not boilerplate departure templates [Task 1]
+- Symptom: interview-intel work looks complete on paper but does not satisfy the request. Cause: only creating folders/templates/scripts without a real run loop. Fix: add an actual recurring collection procedure or scheduler that writes into inbox/review surfaces and only then talk about workflow completeness [Task 2]
+- Symptom: the collected data exists but still feels unusable. Cause: only exposing CSV bottom tables. Fix: always pair the structured table with a Markdown reading surface such as `review.md` or `inbox/<date>.md` [Task 2]
+- Symptom: search results become noisy and low-value. Cause: using broad `AI infra` or generic LLM/job-search terms, or over-weighting “AI” over “真实面经”. Fix: scope queries to `agent infrastructure / agent runtime / AI coding platform / developer tools infra / observability / eval`, then apply real-interview and domestic-Chinese filters before priority ranking [Task 3]
+- Symptom: Cursor/OpenAI process pages or foreign workflow articles dominate the priority bucket. Cause: `interview process` / `interview with` style terms stayed too broad. Fix: tighten relevance rules toward `p0/p1 + strong/medium + 真实面经信号 + 国内中文优先` and explicitly exclude guides, mocks, and question banks [Task 3]
+- Symptom: users cannot tell whether “today’s interview intel” is already current. Cause: not stating sync status and reading entrypoint explicitly. Fix: answer with whether today’s inbox was refreshed and whether `radar.csv` promotion has happened yet [Task 4]
+- Symptom: all candidates remain stuck outside the main table. Cause: collection is automated but promotion is still manual. Fix: add a human-in-the-loop promotion script instead of bulk-writing inbox candidates into `radar.csv` [Task 4]
+
 # Task Group: cocoa review handoff workflows
 
 scope: Review-only handoffs in `$HOME/workspace/cocoa`, especially when another model implements and Codex is asked to validate contract fidelity rather than self-fix.
@@ -115,56 +202,6 @@ applies_to: cwd=$HOME/workspace/cocoa; reuse_rule=safe for similar cocoa runtime
 - Symptom: type-check command appears broken. Cause: using `python -m mypy` in an environment where only the pipx-installed `mypy` binary is available. Fix: call `mypy src/cocoa` directly [Task 1][Task 2]
 - Symptom: cost-aware runtime works but the user rejects the implementation shape. Cause: routing/configuration was expressed as many `COCOA_*` environment variables. Fix: move toward structured config objects, explicit profile management, and a clearer persistence/UI path [Task 3]
 - Symptom: commit accidentally picks up unrelated local changes. Cause: not checking/staging carefully in a dirty worktree. Fix: inspect `git status`, keep unrelated files like `README.md` or `tmp/` out of the task commit, and stage only the current feature set [Task 2][Task 4]
-
-# Task Group: career-transition positioning and interview intelligence
-
-scope: `$HOME/workspace/career-transition` as a structured job-search system, including role prioritization, transition narrative, and the still-incomplete interview-intel execution loop.
-applies_to: cwd=$HOME/workspace/career-transition; reuse_rule=safe for this repo and closely related career-packaging tasks; treat file lists and commit refs as checkout-specific
-
-## Task 1: Build the repo as a job-search decision system and prioritize AI systems roles
-
-### rollout_summary_files
-
-- rollout_summaries/2026-05-02T05-49-25-TYv5-career_transition_ai_systems_and_interview_intel.md (cwd=$HOME/workspace/career-transition, rollout_path=$HOME/.codex/sessions/2026/05/02/rollout-2026-05-02T13-49-25-019de73c-0dca-7383-92b1-2625742bffef.jsonl, updated_at=2026-05-02T09:51:21+00:00, thread_id=019de73c-0dca-7383-92b1-2625742bffef, repo setup + positioning)
-- rollout_summaries/2026-05-02T11-46-19-DJx1-cocoa_cost_aware_runtime_and_job_search_positioning.md (cwd=$HOME/workspace/cocoa, rollout_path=$HOME/.codex/sessions/2026/05/02/rollout-2026-05-02T19-46-19-019de882-cdd2-7971-9bda-4e97a29ecafb.jsonl, updated_at=2026-05-02T12:22:06+00:00, thread_id=019de882-cdd2-7971-9bda-4e97a29ecafb, cross-links cocoa/Solo narrative into job search)
-
-### keywords
-
-- career-transition, AI systems, agent runtime, developer tools, Bosch, automotive exit, GOALS.md, targets/role-archetypes.md, positioning/transition-narrative.md, cocoa-solo-agent-runtime-project.md
-
-## Task 2: Add interview-intel structure, but recognize that static docs are not enough
-
-### rollout_summary_files
-
-- rollout_summaries/2026-05-02T05-49-25-TYv5-career_transition_ai_systems_and_interview_intel.md (cwd=$HOME/workspace/career-transition, rollout_path=$HOME/.codex/sessions/2026/05/02/rollout-2026-05-02T13-49-25-019de73c-0dca-7383-92b1-2625742bffef.jsonl, updated_at=2026-05-02T09:51:21+00:00, thread_id=019de73c-0dca-7383-92b1-2625742bffef, partial because periodic execution is still missing)
-
-### keywords
-
-- interview-intel, radar.csv, weekly review, scripts/new-interview-intel-week.sh, sources.md, 定期收集最近的面试经验, AI infra, agent runtime interview experience, weekly/2026-W19.md
-
-## User preferences
-
-- when the user said "我最近打算换工作，我想先创建一个仓库来记录我的学习\\面试\\找工作的过程" -> default to a versioned repo/workflow, not a chat-only plan [Task 1]
-- when the user asked "这个仓库应该如何使用呢" -> provide an executable repo workflow, not just broad advice [Task 1]
-- when the user said "我现在也没有清晰的目标，你能帮我设计吗" -> produce an iterative first pass and then help narrow it, instead of waiting for perfect inputs [Task 1]
-- when the user clarified "并且我现在确实想离开汽车行业了" and then "把ai相关岗位的目标提升优先级" -> do not keep automotive software as the target lane; treat `AI systems / agent runtime / developer tools` as the job-search mainline [Task 1]
-- when the user said the repo should "提供收集面经的能力，定期收集最近的面试经验" and then challenged "你只是增加了一些文档，怎么做到定期收集面经呢" -> static structure is insufficient; future work needs an actual recurring execution path [Task 2]
-
-## Reusable knowledge
-
-- The repo is best framed as a job-search decision system, not a diary [Task 1]
-- Current role priority is `AI systems / agent runtime / developer tools` first, `performance / observability` as the supporting systems angle, and `edge platform` / `backend infrastructure` as backup entry points [Task 1]
-- Bosch / parking / SDV experience should be used as evidence of transferable systems ability, not as the next-industry target [Task 1]
-- The durable files for this repo are `GOALS.md`, `targets/role-archetypes.md`, `positioning/transition-narrative.md`, and the cocoa/Solo packaging docs that tie product work back to job-search narrative [Task 1]
-- Interview-intel should prioritize recent 7-14 day signals with company/role/round/question-type detail and a concrete preparation action; avoid copying full posts or retaining private/internal information [Task 2]
-- Interview-intel search scope should stay centered on `AI systems / agent runtime / developer tools`, with `performance / observability` adjacent rather than leading [Task 2]
-
-## Failures and how to do differently
-
-- Symptom: role strategy feels wide and unfocused. Cause: starting with too many adjacent tracks at once. Fix: confirm industry exit and role-priority order early, then collapse the repo around that mainline [Task 1]
-- Symptom: the user rejects some apparently helpful career docs. Cause: assuming generic resignation/offboarding materials are needed. Fix: in mature-company exits like Bosch, focus on transition boundaries and job-search execution, not boilerplate departure templates [Task 1]
-- Symptom: interview-intel work looks complete on paper but does not satisfy the request. Cause: only creating folders/templates/scripts without a real run loop. Fix: add an actual recurring collection procedure or scheduler that writes into `radar.csv` and weekly notes [Task 2]
-- Symptom: search results become noisy and low-value. Cause: using broad `AI infra` or generic LLM/job-search terms. Fix: scope queries to `agent infrastructure / agent runtime / AI coding platform / developer tools infra / observability / eval` and prefer real interview-experience signals over volume [Task 2]
 
 # Task Group: neovim treesitter debugging and version triage
 

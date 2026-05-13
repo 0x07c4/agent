@@ -35,6 +35,7 @@ approval_mode = "approve"
 [tui]
 status_line = ["model-with-reasoning", "current-dir", "five-hour-limit", "total-input-tokens", "total-output-tokens"]
 theme = "gruvbox-dark"
+status_line_use_colors = true
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4

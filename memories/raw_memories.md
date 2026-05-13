@@ -608,6 +608,125 @@ References:
 - Updated policy location: `AGENTS.md`
 - Local commit: `e5a139a Add interview intelligence workflow`
 
+## Thread `019de870-68fc-7712-b2fb-c3a2c6142bbe`
+updated_at: 2026-05-04T09:56:29+00:00
+cwd: $HOME/workspace/career-transition
+rollout_path: $HOME/.codex/sessions/2026/05/02/rollout-2026-05-02T19-26-14-019de870-68fc-7712-b2fb-c3a2c6142bbe.jsonl
+rollout_summary_file: 2026-05-02T11-26-14-TQUm-interview_intel_recurring_collection_domestic_scope.md
+
+---
+description: 收集面经从泛 AI infra 逐步收敛到国内中文真实面经优先；定期任务必须有可执行调度入口，阅读入口应是 Markdown 而非 CSV，且用户偏好把可拆解执行任务交给 DeepSeek
+task: 面经定期收集与范围收敛 / inbox 阅读入口 / 国内中文真实面经优先
+task_group: career-transition/interview-intel
+task_outcome: partial
+cwd: $HOME/workspace/career-transition
+keywords: interview-intel, 面经, inbox, radar.csv, review.md, systemd --user timer, search-queries.csv, relevance-rules.csv, 国内中文面经, agent runtime, AI coding platform, developer tools infra, DeepSeek, human-in-the-loop
+---
+
+### Task 1: 定期收集入口
+
+task: 面经定期收集自动化与周期执行入口
+
+task_group: career-transition/interview-intel
+
+task_outcome: success
+
+Preference signals:
+- 用户纠正“你只是增加了一些文档，怎么做到定期收集面经呢” -> 以后遇到“定期/周期/自动收集”类需求，不能只写文档，必须落到可运行调度入口。
+- 用户问“这是一个爬虫工具吗，现在已经收集了吗” -> 用户关心的是是否真的采集到了数据，而不是只有流程说明。
+
+Reusable knowledge:
+- 这类任务适合用 `systemd --user timer` 做本地周期触发；`inbox` 作为候选缓冲区，`radar.csv` 作为筛选后的主表。
+- 人读入口应该提供 Markdown，而不是只暴露 CSV。
+
+Failures and how to do differently:
+- 只有 README/周报模板不算“定期收集”；以后先确认调度器、触发后写到哪里、人工筛选点在哪里。
+
+References:
+- `scripts/collect-interview-intel-week.sh`
+- `scripts/install-interview-intel-timer.sh`
+- `scripts/collect-interview-intel-inbox.py`
+- `scripts/render-interview-intel-review.py`
+- `interview-intel/inbox/2026-05-04.md`
+
+### Task 2: 阅读入口
+
+task: CSV 底表 + Markdown 阅读面
+
+task_group: career-transition/interview-intel
+
+task_outcome: success
+
+Preference signals:
+- 用户问“收集成 csv 的话，怎么阅读呢？” -> 默认需要一个更适合人看的阅读入口，而不是只给结构化底表。
+- 用户偏好直接给能看的产物，不要空泛讲方案。
+
+Reusable knowledge:
+- `radar.csv` 负责去重/状态流转/脚本处理；`review.md` 负责阅读。
+- `inbox/<date>.md` 是当天候选的日常阅读面。
+
+Failures and how to do differently:
+- 只有 CSV 底表不够，后续类似场景要默认提供 Markdown 或清单型阅读面。
+
+References:
+- `interview-intel/review.md`
+- `scripts/render-interview-intel-review.py`
+- `interview-intel/README.md`
+
+### Task 3: 收敛范围到国内中文真实面经
+
+task: 面经采集范围收敛与相关性过滤
+
+task_group: career-transition/interview-intel
+
+task_outcome: success
+
+Preference signals:
+- 用户说“所以我觉得你应该收敛面经收集的范围” -> 默认不要泛收所有 AI infra/LLM/题库内容。
+- 用户说“今天的优先处理的3条都不像是面经” -> “像面经但不是面经”的招聘页、准备指南、题库都不应占优先区。
+- 用户说“优先整理国内的面经” -> 国内中文真实面经优先，国外流程/guide 只能补充。
+- 用户明确说“我刚才说你应该列好任务，让deepseek来做执行” -> 遇到可拆解执行型任务，用户希望交给 DeepSeek 做执行，不想在对话里反复改。
+
+Reusable knowledge:
+- 面经收集应把“真实面经信号”放在“AI 相关”前面；面经复盘、一面/二面、拿 offer/凉经、面试经历等才是优先信号。
+- 国内中文社区来源（牛客、一亩三分地、知乎、掘金、博客园、CSDN、个人博客）更适合作为默认优先来源。
+- 泛题库、准备指南、mock interview 页面即使命中关键词，也应降级为 noise 或仅保留在全部候选里。
+
+Failures and how to do differently:
+- 一开始把 `interview process`、`interview with` 之类流程页算进优先区，导致 Cursor/OpenAI 流程页混入面经视图；后来通过更严格的真实经验信号修正。
+- 之后又出现国外 Cursor/OpenAI 流程页占优先区的问题，说明查询词还是过宽；需要继续收紧到国内中文面经优先。
+
+References:
+- `interview-intel/search-queries.csv`
+- `interview-intel/relevance-rules.csv`
+- `interview-intel/sources.md`
+- `scripts/collect-interview-intel-inbox.py`
+- `interview-intel/inbox/2026-05-04.md`
+
+### Task 4: 今日收集状态
+
+task: 今日 inbox 更新与主表入库状态
+
+task_group: career-transition/interview-intel
+
+task_outcome: partial
+
+Preference signals:
+- 用户问“deepseek已经执行完了，现在今天的面经已经更新了吗，还是我需要执行一下脚本？” -> 需要明确当前是否已同步到最新收集结果。
+- 用户随后问“我应该如何查看你收集的面经” -> 阅读入口必须稳定、可直接使用。
+
+Reusable knowledge:
+- 当天 inbox 已被采集脚本更新到最新时间戳；用户无需再手动执行脚本来查看最新候选。
+- 查看入口是 `less interview-intel/inbox/$(date +%F).md`。
+
+Failures and how to do differently:
+- 当前只是“收集到 inbox”，还没有“筛选入 radar”；若用户继续推进，应先补 human-in-the-loop 的 promotion 脚本，而不是把全部候选直接写主表。
+
+References:
+- `interview-intel/inbox/2026-05-04.md`
+- `interview-intel/inbox/2026-05-04.csv`
+- `interview-intel/radar.csv`
+
 ## Thread `019de882-cdd2-7971-9bda-4e97a29ecafb`
 updated_at: 2026-05-02T12:22:06+00:00
 cwd: $HOME/workspace/cocoa

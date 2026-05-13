@@ -19,7 +19,11 @@
 - 做 `cocoa` / `Solo` 产品定位或求职包装时，默认把它们写进 `$HOME/workspace/career-transition` 的叙事材料，而不是只留在对话里。
 - 对求职相关任务，优先把目标收成 `AI systems / agent runtime / developer tools` 主线；不要默认继续围绕汽车行业软件。
 - 做面经/资料收集时，用户要的是“定期收集最近的面试经验”这种可执行流程，不是只补几份静态文档。
+- 当用户问“这是一个爬虫工具吗，现在已经收集了吗”这类问题时，要直接回答是否真的采集到了数据，而不是只描述流程。
+- 做面经/资料收集时，默认提供 Markdown 阅读入口，不要只留下 CSV；用户明确问过“收集成 csv 的话，怎么阅读呢？”
 - 做周期性资料收集时，先按真实目标岗位收敛搜索词和相关性规则；宁可少而准，也不要用泛 `AI infra`、泛 LLM、泛求职词制造噪声。
+- 做面经收集时，默认优先国内中文真实面经；不要让 interview guide、mock interview、questions and answers、题库、招聘页占据优先区。
+- 对可拆解、已列好任务的执行型工作，用户明确说过“应该列好任务，让deepseek来做执行”；默认把执行交给 DeepSeek，而不是在对话里反复手动迭代。
 - 对 `Solo` UI，默认不要自动启动本地预览或 dev server；用户更愿意自己用 `npm run tauri dev`。
 - `Solo` UI 默认走 control-plane / observability-first 方向，不走 chat-first、解释驱动界面。
 - `Solo` 的资源访问应该“在 agent 需要的时候再向用户询问访问资源的权限”，不要一上来就要求用户预配置目录。
@@ -45,6 +49,20 @@
 
 ## What's in Memory
 
+### $HOME/workspace/career-transition
+
+#### 2026-05-04
+
+- interview-intel recurring collection and domestic-scope tightening: interview-intel, systemd --user timer, review.md, inbox, radar.csv, 国内中文真实面经, relevance-rules.csv
+  - desc: 覆盖 `$HOME/workspace/career-transition` 中面经情报流从“只有结构/模板”升级为真实可执行采集流程的记忆，包括定时器、`inbox/<date>.md`、`review.md`、相关性过滤，以及“优先国内中文真实面经”的范围收敛。适合在继续做面经自动化、阅读入口或相关性规则时先搜。
+  - learnings: 当前已能自动更新当天 inbox，阅读入口是 Markdown 而非 CSV；但 `radar.csv` 仍未做 human-in-the-loop promotion，不能把“今天已收集”误说成“主表已整理完成”。
+
+#### 2026-05-02
+
+- career-transition repo and role priority: career-transition, AI systems, agent runtime, developer tools, GOALS.md, transition-narrative
+  - desc: 汇总求职仓库的结构、角色优先级、叙事主线，以及 `cocoa` / `Solo` 如何包装成求职资产。适合在更新求职材料、角色筛选或项目叙事时先搜。
+  - learnings: 仓库应作为“求职决策系统”维护；当前明确主线是 `AI systems / agent runtime / developer tools`，汽车行业经历只作为可迁移系统能力证据。
+
 ### $HOME/workspace/cocoa
 
 #### 2026-05-03
@@ -59,27 +77,12 @@
   - desc: 覆盖 `cocoa` 从 terminal-native MVP、proposal edit、`@path` completion、thread-context replay，到 cost-aware runtime/product positioning 的整组记忆。适合在做 runtime/CLI/UX/求职叙事联动时先搜。
   - learnings: `cocoa` 的正确方向是“cost-aware, provider-agnostic agent runtime”，不是“另一个 OpenCode”；第一版 `COCOA_*` env 路由虽然跑通，但已被用户明确否定，后续要改成结构化 profile/config。
 
-### $HOME/workspace/career-transition
+### Older Memory Topics
 
-#### 2026-05-02
-
-- career-transition repo and role priority: career-transition, AI systems, agent runtime, developer tools, GOALS.md, transition-narrative
-  - desc: 汇总求职仓库的结构、角色优先级、叙事主线，以及 `cocoa` / `Solo` 如何包装成求职资产。适合在更新求职材料、角色筛选或项目叙事时先搜。
-  - learnings: 仓库应作为“求职决策系统”维护；当前明确主线是 `AI systems / agent runtime / developer tools`，汽车行业经历只作为可迁移系统能力证据。
-
-- interview intelligence workflow: interview-intel, radar.csv, weekly review, 定期收集最近的面试经验, AI infra, agent runtime interview experience
-  - desc: 覆盖面经情报流的目录、模板、脚本和失败点。适合在把静态面经文档升级成真实周期化收集流程时先搜。
-  - learnings: 仅有 `interview-intel/` 结构、模板和 `scripts/new-interview-intel-week.sh` 还不够；真正高价值的是按目标岗位收敛检索词，并把结果定期写回 `radar.csv` 与周报。
-
-### $HOME/.config/nvim
-
-#### 2026-04-26
+#### $HOME/.config/nvim
 
 - Treesitter `node:range` crash and stable-version triage: neovim, treesitter, snacks.nvim, get_range, pacman -Q neovim, v0.12.2
-  - desc: 覆盖本机 `$HOME/.config/nvim` 下 Markdown 打开时报 `vim.treesitter.get_range()`/`node:range` 的定位与修复，以及 Arch 上 Neovim stable/nightly/包源状态的判断方法。
-  - learnings: 问题根因是 `get_range()` 收到单元素 TSNode 列表，不是 query 文本本身；修复路径是 `lua/polish.lua` 的窄兼容 wrapper，而不是大改 Treesitter query。版本判断要分 stable、nightly 和本机包源三层。
-
-### Older Memory Topics
+  - desc: 覆盖本机 `$HOME/.config/nvim` 下 Markdown 打开时报 `vim.treesitter.get_range()`/`node:range` 的定位与修复，以及 Arch 上 Neovim stable/nightly/包源状态的判断方法。适用 `cwd=$HOME/.config/nvim` 的本机 Neovim/Treesitter 排障。
 
 #### $HOME/workspace/wiki
 
